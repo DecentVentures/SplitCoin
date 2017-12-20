@@ -1,0 +1,119 @@
+@media screen and (max-width: 700px) {
+  .App {
+    width:100%;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 80px 850px 80px;
+    grid-template-areas: "h h h h h h" "c c c c c c" "f f f f f f";
+
+    background-image: url("/BlurSplitCoinBg.jpg");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
+
+@media screen and (min-width: 701px) {
+  .App {
+    background-image: url("/BlurSplitCoinBg.jpg");
+    width:100%;
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 80px 850px 80px;
+    grid-gap: 15px;
+    grid-template-areas: "h h h h h h h h h h h h" "m m . c c c c c c c . ." "f f f f f f f f f f f f";
+  }
+}
+
+.App-logo {
+  height: 80px;
+}
+
+.App-side-logo {
+  height: 40px;
+  cursor: pointer;
+}
+
+.header {
+  background-color: #2F506F;
+  height: 40px;
+  padding: 20px;
+  color: white;
+  margin-bottom: 15px;
+  grid-area: h
+}
+
+.content {
+  grid-area: c
+}
+
+.menu {
+  grid-area: m
+}
+
+.header>*>span {
+  color: white;
+}
+
+.App-side-header {
+  background-color: #2C4362;
+  height: 40px;
+  padding: 20px;
+  color: white;
+}
+
+.App-side-header-placehold {
+  background-color: #2C4362;
+  height: 40px;
+  padding: 20px;
+  color: white;
+  top: 0;
+  left: 0;
+}
+
+
+.App-intro {
+  font-size: large;
+}
+
+.SplitNav>div>div:nth-child(2)>*>span>div>div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 700px) {
+  .SplitCreate {
+    background-color: #F5F5F5;
+    display: block;
+  }
+  .SplitCreate>div {
+    width: 80% !important;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 701px) {
+  .SplitCreate {
+    display: flex;
+    background-color: #F5F5F5;
+    justify-content: space-around;
+    align-items: center;
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "splitcoin",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "clipboard-js": "^0.3.6",
+    "ethjs": "^0.3.1",
+    "history": "^4.7.2",
+    "lodash": "^4.17.4",
+    "material-ui": "^0.18.7",
+    "material-ui-icons": "^1.0.0-beta.17",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.2.2",
+    "react-scripts-ts": "2.8.0",
+    "react-tap-event-plugin": "^2.0.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "web3": "^1.0.0-beta.22"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  },
+  "devDependencies": {
+    "@types/clipboard-js": "^0.3.2",
+    "@types/history": "^4.6.2",
+    "@types/jest": "^21.1.8",
+    "@types/lodash": "^4.14.91",
+    "@types/material-ui": "^0.18.5",
+    "@types/node": "^8.5.1",
+    "@types/react": "^15.6.1",
+    "@types/react-dom": "^15.5.6",
+    "@types/react-router-dom": "^4.2.3",
+    "@types/react-tap-event-plugin": "0.0.30",
+    "@types/request": "^2.0.9",
+    "@types/request-promise": "^4.1.39"
+  }
+}

@@ -1,0 +1,18 @@
+session_name: splitcoin
+windows:
+- window_name: vim
+  shell_command_before:
+  - cd .
+  panes:
+  - vim
+- window_name: git
+  shell_command_before:
+  - cd .
+  panes:
+  - git status
+- window_name: npm
+  shell_command_before:
+  - cd .
+  panes:
+  - testrpc
+  - npm start
