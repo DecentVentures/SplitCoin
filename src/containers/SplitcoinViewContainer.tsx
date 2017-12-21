@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Split } from '../types/Split';
 import { Ether } from '../types/Currency';
-import { SplitList } from '../components/SplitList';
-import { SplitNav } from '../components/SplitNav';
+import SplitList from '../components/SplitList';
+import SplitNav from '../components/SplitNav';
 import {  CardHeader } from 'material-ui';
 import { CardActions, RaisedButton } from 'material-ui';
 import { Card } from 'material-ui';
-import { Web3Component } from '../components/Web3Component';
+import Web3Component from '../components/Web3Component';
 
 let splitInterface = require('../blockchain/build/contracts/ClaimableSplitCoin.json');
 

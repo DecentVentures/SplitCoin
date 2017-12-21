@@ -2,7 +2,7 @@ import * as React from 'react';
 import  { Component } from 'react';
 import * as _ from 'lodash';
 import { Currency } from '../types/Currency';
-import { CurrencySelector } from '../components/CurrencySelector';
+import CurrencySelector from '../components/CurrencySelector';
 
 let request = require('request-promise');
 

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Split } from '../types/Split';
 import { Ether } from '../types/Currency';
-import { SplitList } from '../components/SplitList';
-import { SplitNav } from '../components/SplitNav';
+import SplitList from '../components/SplitList';
+import SplitNav from '../components/SplitNav';
 import { CardActions, CardHeader, RaisedButton } from 'material-ui';
 import { Card } from 'material-ui';
-import { Web3Component } from '../components/Web3Component';
+import Web3Component from '../components/Web3Component';
 import { RouteComponentProps } from "react-router";
 
 let constants = require('../config/constants');

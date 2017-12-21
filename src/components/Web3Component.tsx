@@ -52,7 +52,7 @@ export default class Web3Component<T> extends Component<Props<T>> {
 	setLocalWeb3() {
 		// Checking if Web3 has been injected by the browser (Mist/MetaMask)
 		console.log('Attempting to use local Web3');
-		if (typeof window.web3 !== 'undefined') {
+		if (window && window.web3 !== 'undefined') {
 			this.web3 = new Web3(window.web3.currentProvider);
 			this.eth = new Eth(window.web3.currentProvider);
 			console.log('Using injected Web3');

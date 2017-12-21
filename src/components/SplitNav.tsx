@@ -1,7 +1,7 @@
 import * as React from 'react';
 import  {  MouseEvent } from 'react';
 import { Badge, Subheader, Drawer, List, ListItem, FlatButton } from 'material-ui';
-import { AddressPopover } from './AddressPopover';
+import AddressPopover from './AddressPopover';
 import { SplitcoinContract } from '../types/SplitcoinContract';
 import { RouteComponentProps } from "react-router";
 import Web3Component from "./Web3Component";

@@ -2,16 +2,16 @@ import * as React from 'react';
 import { Split } from '../types/Split';
 import { Currency } from '../types/Currency';
 import { Ether } from '../types/Currency';
-import { SplitCreate } from '../components/SplitCreate';
-import { SplitList } from '../components/SplitList';
+import SplitCreate from '../components/SplitCreate';
+import SplitList from '../components/SplitList';
 import CurrencySelectorContainer from './CurrencySelectorContainer';
-import { SplitNav } from '../components/SplitNav';
+import SplitNav from '../components/SplitNav';
 import { CardHeader } from 'material-ui';
 import { CardActions } from 'material-ui';
 import { FlatButton, Dialog, Card } from 'material-ui';
 import { TextField, Toggle } from 'material-ui';
-import { DeployDialogButton } from '../components/DeployDialogButton';
-import { Web3Component } from '../components/Web3Component';
+import DeployDialogButton from '../components/DeployDialogButton';
+import Web3Component from '../components/Web3Component';
 
 let request = require('request-promise');
 let constants = require('../config/constants');
@@ -370,7 +370,7 @@ export default class SplitcoinContainer extends Web3Component<any> {
 			match={this.props.match} history={this.props.history} location={this.props.location}/>
 			</div>
 			<CardActions>
-			<div style={{"float":"left"}}>
+			<div>
 			<DeployDialogButton disabled={this.state.splits.length <= 0} deployed={this.state.deployed} onStart={this.startDeploy} onAgree={this.deploySplits}/>
 			<Toggle label={this.state.withdrawalMode ? "Receiver pays gas" : "Sender pays gas" }
 			onToggle={this.toggleWithdrawMode} toggled={this.state.withdrawalMode} style={styles.toggle} />

@@ -3,7 +3,8 @@ import { Component } from 'react';
 import { Popover, IconButton } from 'material-ui';
 import { RouteComponentProps } from "react-router";
 let clipboard = require('clipboard-js');
-let { ContentCopy, RemoveRedEye } = require( 'material-ui-icons');
+import ContentCopy from 'material-ui/svg-icons/content/content-copy';
+import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
 
 let request = require('request-promise');
 const options = {
