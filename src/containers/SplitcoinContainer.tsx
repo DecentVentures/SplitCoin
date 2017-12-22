@@ -146,7 +146,8 @@ export default class SplitcoinContainer extends Web3Component<any> {
 		let network = this.props.match.params.network;
 		let factoryAddr = network ? env[network].active : constants.SPLITCOIN_FACTORY;
 		//default to the main net if theres no address
-		factoryAddr = factoryAddr || env.main;
+		factoryAddr = factoryAddr || env.main.active;
+		console.log(factoryAddr);
 		await this.updateFactory(factoryAddr);
 	}
 

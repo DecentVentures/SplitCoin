@@ -3,7 +3,6 @@ import { RouteComponentProps } from "react-router";
 let request = require('request-promise');
 let Web3 = require('web3');
 let Eth = require('ethjs');
-let window : Window & {web3: any};
 
 type Props<T> = RouteComponentProps<{
 	network: string
@@ -19,7 +18,7 @@ export default class Web3Component<T> extends Component<Props<T>> {
 	}
 
 	async componentDidMount() {
-		this.setWeb3();
+		await this.setWeb3();
 		this.account = await this.getAccount();
 	}
 
@@ -50,11 +49,12 @@ export default class Web3Component<T> extends Component<Props<T>> {
 	}
 
 	setLocalWeb3() {
+		let win : Window & {web3: any}  = window as any;
 		// Checking if Web3 has been injected by the browser (Mist/MetaMask)
-		console.log('Attempting to use local Web3');
-		if (window && window.web3 !== 'undefined') {
-			this.web3 = new Web3(window.web3.currentProvider);
-			this.eth = new Eth(window.web3.currentProvider);
+		console.log('Attempting to use local Web3', window);
+		if (window && (window as any).web3 !== 'undefined') {
+			this.web3 = new Web3(win.web3.currentProvider);
+			this.eth = new Eth(win.web3.currentProvider);
 			console.log('Using injected Web3');
 			return Promise.resolve(this.web3);
 		} else {

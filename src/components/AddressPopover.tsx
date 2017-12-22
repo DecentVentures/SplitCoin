@@ -42,7 +42,7 @@ export default class AddressPopover extends Component<Props> {
 	}
 
 	async componentDidMount() {
-		this.isShapeShift().then((isSS) => {
+		await this.isShapeShift().then((isSS) => {
 			this.setState(({
 				isSS: isSS
 			}));
@@ -61,10 +61,9 @@ export default class AddressPopover extends Component<Props> {
 	}
 
 	viewShapeShift() {
-		if(this.props.address) {
-			this.props.history.push({pathname: `https://shapeshift.io/txStat/${this.props.address.toLowerCase()}`});
+		if(this.props.address && window) {
+			window.location.href = `https://shapeshift.io/txStat/${this.props.address.toLowerCase()}`;
 		}
-		//window.location = `https://shapeshift.io/txStat/${this.props.address.toLowerCase()}`;
 	}
 
 	async isShapeShift() {

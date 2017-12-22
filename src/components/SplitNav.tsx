@@ -12,12 +12,12 @@ type Props = {
 	onContractClick?: (contract: SplitcoinContract) => {}
 } & RouteComponentProps<any>
 
-type State = {
+	type State = {
 		navOpen: boolean,
 		open: boolean,
 		popTarget?: Element,
 		contract?: string
-}
+	}
 
 export default class SplitNav extends Web3Component<Props> {
 
@@ -36,7 +36,6 @@ export default class SplitNav extends Web3Component<Props> {
 	contractClick(contract: string) {
 		return (event: MouseEvent<{}>) => {
 			event.preventDefault();
-			event.currentTarget;
 			this.setState({
 				open: true,
 				contract: contract,
@@ -61,7 +60,9 @@ export default class SplitNav extends Web3Component<Props> {
 				navOpen: !this.state.navOpen
 			}));
 		} else {
-			this.props.history.push('/');
+			let network = this.props.network;
+			let prefix = network ? `/network/${network}` : '';
+			this.props.history.push(`${prefix}/`);
 			//window.location = `/`;
 		}
 	}
@@ -82,10 +83,10 @@ export default class SplitNav extends Web3Component<Props> {
 				margin: '-25px'
 			}
 		} as React.CSSProperties;
-		let contracts = this.props.contracts || []
-			.map((contract => <ListItem key={contract} onClick={this.contractClick(contract)}>
+		let contracts = this.props.contracts ? this.props
+			.contracts.map((contract => <ListItem key={contract} onClick={this.contractClick(contract)}>
 				{ contract }
-				</ListItem>));
+				</ListItem>)) : [];
 
 		let contractCount = this.props.contracts ? this.props.contracts.length : 0;
 		return (
