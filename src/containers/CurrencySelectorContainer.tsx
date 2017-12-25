@@ -25,8 +25,10 @@ export default class CurrencySelectorContainer extends Component<Props> {
 		if (!this.state.coins || !this.state.coins.length) {
 			request('https://cors.shapeshift.io/getcoins').then((resp: any) => {
 				let json = JSON.parse(resp);
+				let coins = _.values(json);
+				let availableCoins = coins.filter((coin) => coin.status == 'available');
 				this.setState({
-					coins: _.values(json),
+					coins: availableCoins,
 					selectedCurrency: json.ETH
 				});
 			});
