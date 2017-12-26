@@ -12,6 +12,7 @@ export default class Web3Component<T> extends Component<Props<T>> {
 	eth = Eth;
 	web3 = Web3;
 	account: string = '';
+	hasWeb3: boolean = false;
 
 	constructor(props: Props<T>) {
 		super(props);
@@ -28,7 +29,7 @@ export default class Web3Component<T> extends Component<Props<T>> {
 
 	setPublicWeb3() {
 		console.log('Falling back to use gloabl Web3 provider');
-		let network = this.getNetwork();
+		let network = this.getNetwork() || 'main';
 		if (network == 'main') {
 			return request("https://api.myetherapi.com/eth").then(() => {
 				this.web3 = new Web3(new Web3.providers.HttpProvider("https://api.myetherapi.com/eth"));
@@ -52,23 +53,19 @@ export default class Web3Component<T> extends Component<Props<T>> {
 		let win : Window & {web3: any}  = window as any;
 		// Checking if Web3 has been injected by the browser (Mist/MetaMask)
 		console.log('Attempting to use local Web3', window);
-		if (window && (window as any).web3 !== 'undefined') {
+		if (win && win.web3 && win.web3.currentProvider) {
 			this.web3 = new Web3(win.web3.currentProvider);
 			this.eth = new Eth(win.web3.currentProvider);
 			console.log('Using injected Web3');
+			this.hasWeb3 = true;
 			return Promise.resolve(this.web3);
 		} else {
-			console.log('No web3? You should consider trying MetaMask!')
-			// fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-			this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-			this.eth = new Eth(new Web3.providers.HttpProvider("http://localhost:8545"));
-			console.log('Using localhost Web3');
-			return Promise.resolve(this.web3);
+			return Promise.reject("You need a web3 provider");
 		}
 	}
 
 	getNetwork() {
-		if (this.props.match) {
+		if (this.props.match && this.props.match.params && this.props.match.params.network) {
 			return this.props.match.params.network;
 		} else {
 			return 'main';
@@ -76,7 +73,11 @@ export default class Web3Component<T> extends Component<Props<T>> {
 	}
 
 	public async getAccount(): Promise<string> {
-		let accounts = await this.web3.eth.getAccounts();
-		return accounts[0];
+		if(this.hasWeb3) {
+			let accounts = await this.web3.eth.getAccounts();
+			return accounts[0];
+		} else {
+			return '';
+		}
 	}
 }

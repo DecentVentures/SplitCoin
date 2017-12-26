@@ -4,7 +4,7 @@ module.exports = {
     deprecated: []
   },
   main: {
-    active: "0x4A53e0f5144aDcBB606087615bf78078C2097F02",
+    active: "0x50D998D0fAF680B9cf44D6CFd9f7c3654056dCc5",
     deprecated: [
       "0x4A53e0f5144aDcBB606087615bf78078C2097F02"
     ]
