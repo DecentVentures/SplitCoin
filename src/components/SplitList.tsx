@@ -44,7 +44,7 @@ type Props = {
 				(split) => (
 					<SplitView
 					network={this.props.network}
-					key={split.to}
+					key={split.to+split.out_currency.name}
 					split={split}
 					removeSplit={removeFn}
 					onClaim={claimFn}
