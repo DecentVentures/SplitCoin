@@ -36,7 +36,6 @@ export default class CurrencySelectorContainer extends Component<Props> {
 	}
 
 	onCoinChange = (event:Event, index: number, value: Currency) => {
-		console.log('CurrencySelectorContainer', value);
 		this.setState({
 			selectedCurrency: value
 		});

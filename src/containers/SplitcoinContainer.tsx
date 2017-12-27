@@ -147,7 +147,6 @@ export default class SplitcoinContainer extends Web3Component<any> {
 		let factoryAddr = network ? env[network].active : constants.SPLITCOIN_FACTORY;
 		//default to the main net if theres no address
 		factoryAddr = factoryAddr || env.main.active;
-		console.log(factoryAddr);
 		await this.updateFactory(factoryAddr);
 	}
 
@@ -205,7 +204,6 @@ export default class SplitcoinContainer extends Web3Component<any> {
 					}));
 					return Promise.reject('Shapeshift Integration Failed');
 				}
-				console.log(resp, split);
 			} else {
 				split.eth_address = split.to;
 			}
@@ -251,7 +249,6 @@ export default class SplitcoinContainer extends Web3Component<any> {
 				returnAddress: ''
 			}
 		};
-		console.log(shiftData);
 		if (returnAddr) {
 			shiftData.form.returnAddress = returnAddr;
 		}

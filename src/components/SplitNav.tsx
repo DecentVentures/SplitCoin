@@ -1,5 +1,4 @@
 import * as React from 'react';
-import  {  MouseEvent } from 'react';
 import { Badge, Subheader, Drawer, List, ListItem, FlatButton } from 'material-ui';
 import AddressPopover from './AddressPopover';
 import { SplitcoinContract } from '../types/SplitcoinContract';
@@ -34,7 +33,7 @@ export default class SplitNav extends Web3Component<Props> {
 
 
 	contractClick(contract: string) {
-		return (event: MouseEvent<{}>) => {
+		return (event: any) => {
 			event.preventDefault();
 			this.setState({
 				open: true,
