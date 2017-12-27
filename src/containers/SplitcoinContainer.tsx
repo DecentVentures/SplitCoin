@@ -3,6 +3,7 @@ import { Split } from '../types/Split';
 import { Currency } from '../types/Currency';
 import { Ether } from '../types/Currency';
 import SplitCreate from '../components/SplitCreate';
+import Metamask from '../components/Metamask';
 import SplitList from '../components/SplitList';
 import CurrencySelectorContainer from './CurrencySelectorContainer';
 import SplitNav from '../components/SplitNav';
@@ -331,8 +332,9 @@ export default class SplitcoinContainer extends Web3Component<any> {
 		return (
 			<div className="App">
 			<div className="header">
+			<Metamask open={!this.hasWeb3} />
 			<Dialog
-			title="Error"
+			title="Uh-oh..."
 			modal={false}
 			open={this.state.message != ''}>
 			<div>{this.state.message}</div>
@@ -346,7 +348,7 @@ export default class SplitcoinContainer extends Web3Component<any> {
 			<div className="content App-intro">
 			<div>
 			<SplitNav contracts={this.state.deployedContracts} network={this.getNetwork()}
-			match={this.props.match} location={this.props.location} history={this.props.history}	
+			match={this.props.match} location={this.props.location} history={this.props.history}
 			/>
 			<Card>
 			<CardHeader style={styles.header} title="Splitcoin" subtitle="Income automation, powered by Ethereum" avatar={Ether.imageSmall} />
