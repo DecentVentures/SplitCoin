@@ -19,7 +19,7 @@
     "web3": "^1.0.0-beta.22"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
+    "start": "./start.sh",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"

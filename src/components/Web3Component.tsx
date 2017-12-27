@@ -65,11 +65,7 @@ export default class Web3Component<T> extends Component<Props<T>> {
 	}
 
 	getNetwork() {
-		if (this.props.match && this.props.match.params && this.props.match.params.network) {
-			return this.props.match.params.network;
-		} else {
-			return 'main';
-		}
+		return this.props.match.params.network;
 	}
 
 	public async getAccount(): Promise<string> {
