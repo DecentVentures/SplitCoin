@@ -85,6 +85,9 @@ export default class SplitCreate extends Component<Props> {
 			if (split.percent > this.props.unallocatedPercent) {
 				split.percent = this.props.unallocatedPercent;
 			}
+			if(split.percent == 0 && this.props.unallocatedPercent > 0) {
+				split.percent = this.props.unallocatedPercent;
+			}
 			if (this.props.unallocatedPercent <= 0) {
 				split.percent = 0.0;
 			}
@@ -100,11 +103,13 @@ export default class SplitCreate extends Component<Props> {
 
 
 	render() {
+		let percent = this.state.split.percent > 0 ? this.state.split.percent : this.props.unallocatedPercent;
 		return (
 			<div className="SplitCreate">
 			<CurrencySelectorContainer label="Output Currency" onCoinChange={this.currencyChange}/>
 			<TextField floatingLabelText="Send To Address" floatingLabelFixed={true} type="text" value={this.state.split.to} onChange={this.onSplitToUpdate}/>
-			<TextField floatingLabelText="Percent To Send" floatingLabelFixed={true} type="number" min={0.0} max={this.props.unallocatedPercent}  value={this.state.split.percent} onChange={this.onSplitPercentUpdate}/>
+			<TextField floatingLabelText="Percent To Send" floatingLabelFixed={true} type="number" min={0.0} max={this.props.unallocatedPercent}  value={percent}
+			onChange={this.onSplitPercentUpdate}/>
 			<RaisedButton label="Add Split" onClick={this.create} disabled={!this.canCreate()}  primary={true}/>
 			</div>
 		);

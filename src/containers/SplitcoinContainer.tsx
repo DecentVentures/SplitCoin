@@ -152,8 +152,17 @@ export default class SplitcoinContainer extends Web3Component<any> {
 	}
 
 	createSplit(split: Split) {
+		let index = this.state.splits.findIndex((cur) => {
+			return cur.to == split.to;
+		});
+		let splits = this.state.splits;
+		if(index > -1) {
+			splits[index].percent += split.percent;
+		} else {
+			splits.push(split);
+		}
 		this.setState((state: State) => ({
-			splits: state.splits.concat(split)
+			splits: splits
 		}));
 	}
 

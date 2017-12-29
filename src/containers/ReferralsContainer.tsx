@@ -222,6 +222,13 @@ export default class ReferralsContainer extends Web3Component<Props> {
 		return this.claimFor(referralContract, account);
 	}
 
+	goToView() {
+		let network = this.getNetwork();
+		let prefix = network ? `/network/${network}` : '';
+		let scanUrl = `${prefix}/view/${this.state.address}`;
+		this.props.history.push(scanUrl);
+	}
+
 
 
 	render() {
@@ -241,7 +248,6 @@ export default class ReferralsContainer extends Web3Component<Props> {
 
 
 		let network = this.props.match.params.network;
-		let scanUrl = `view/${this.state.address}`;
 		return (
 			<div className="App">
 			<div className="header">
@@ -254,7 +260,7 @@ export default class ReferralsContainer extends Web3Component<Props> {
 			</SplitNav>
 			<CardHeader style={styles.header} title="Splitcoin - Referrals" subtitle="Pull your referral bonuses into your referral contract" avatar={Ether.imageSmall} />
 			<div>
-			<div style={styles.contract}><a href={scanUrl}>{this.state.address}</a></div>
+			<div style={styles.contract}><a onClick={this.goToView}>{this.state.address}</a></div>
 			<SplitList network={this.getNetwork()} splits={this.state.splits} claimable={true} onClaim={this.onClaimFor}
 			match={this.props.match}
 			location={this.props.location}
