@@ -88,12 +88,17 @@ export default class SplitNav extends Web3Component<Props> {
 				</ListItem>)) : [];
 
 		let contractCount = this.props.contracts ? this.props.contracts.length : 0;
+		let icon = (<img onClick={this.navClick} src="/iconw.png" className="App-side-logo" alt="logo" />);
+		let badge = (
+			<Badge style={styles.badge} badgeContent={contractCount} primary={true} >
+			{icon}
+			</Badge>
+		);
+
 		return (
 			!this.navShouldBeOpen() || !this.state.navOpen ?
 			(<div className="menu App-side-header-placehold">
-				<Badge style={styles.badge} badgeContent={contractCount} primary={true} >
-				<img onClick={this.navClick} src="/iconw.png" className="App-side-logo" alt="logo" />
-				</Badge>
+				{contractCount > 0 ? badge : icon }
 				</div>
 			) :
 			(<Drawer className="SplitNav menu" open={this.state.navOpen && this.navShouldBeOpen()}>
