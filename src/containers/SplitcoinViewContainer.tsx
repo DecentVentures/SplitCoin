@@ -12,6 +12,7 @@ let splitInterface = require('../blockchain/build/contracts/ClaimableSplitCoin.j
 
 type State = {
 	address: string,
+	isSplitContract: boolean,
 	deployedContracts: string[],
 	pendingBalance: number,
 	splits: Split[],
@@ -24,7 +25,8 @@ export default class SplitcoinViewContainer extends Web3Component<any> {
 		splits: [],
 		pendingBalance: 0,
 		deployedContracts: [],
-		claimable: false
+		claimable: false,
+		isSplitContract: true
 	}
 
 	constructor(props: any) {
@@ -44,7 +46,7 @@ export default class SplitcoinViewContainer extends Web3Component<any> {
 				await this.populateViewContract(viewAddr);
 			}
 		} catch (e) {
-			console.error(e);
+			this.setState({isSplitContract: false});
 		}
 	}
 
