@@ -50,6 +50,29 @@ export default class SplitcoinViewContainer extends Web3Component<any> {
 		}
 	}
 
+	async componentWillReceiveProps(newProps: any) {
+		this.setState({
+			address: '',
+			splits: [],
+			pendingBalance: 0,
+			deployedContracts: [],
+			claimable: false,
+			isSplitContract: true
+		});
+		try {
+			let viewAddr = newProps.match.params.address;
+			this.setState({
+				address: viewAddr
+			});
+			if (viewAddr) {
+				await this.populateViewContract(viewAddr);
+			}
+		} catch (e) {
+			this.setState({isSplitContract: false});
+		}
+
+	}
+
 	async populateViewContract(address: string) {
 		let contract = new this.web3.eth.Contract(splitInterface.abi, address);
 		let splitCount = await contract.methods.getSplitCount().call();
