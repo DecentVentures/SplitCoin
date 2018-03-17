@@ -55,6 +55,7 @@ type Props = {
 					/>
 				)
 			);
+			console.log(splits);
 			return (
 				<Table style={styles.table} >
 				<TableBody>

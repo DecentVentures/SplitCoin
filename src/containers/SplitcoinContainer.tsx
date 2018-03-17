@@ -153,7 +153,7 @@ export default class SplitcoinContainer extends Web3Component<any> {
 
 	createSplit(split: Split) {
 		let index = this.state.splits.findIndex((cur) => {
-			return cur.to == split.to;
+			return cur.to == split.to && cur.out_currency == split.out_currency;
 		});
 		let splits = this.state.splits;
 		if(index > -1) {
@@ -379,11 +379,9 @@ export default class SplitcoinContainer extends Web3Component<any> {
 			match={this.props.match} history={this.props.history} location={this.props.location}/>
 			</div>
 			<CardActions>
-			<div>
-			<DeployDialogButton disabled={this.state.splits.length <= 0} deployed={this.state.deployed} onStart={this.startDeploy} onAgree={this.deploySplits}/>
+			<DeployDialogButton disabled={this.state.splits.length <= 0 || !this.hasWeb3} deployed={this.state.deployed} onStart={this.startDeploy} onAgree={this.deploySplits}/>
 			<Toggle label={this.state.withdrawalMode ? "Receiver pays gas" : "Sender pays gas" }
 			onToggle={this.toggleWithdrawMode} toggled={this.state.withdrawalMode} style={styles.toggle} />
-			</div>
 			</CardActions>
 			</Card>
 			</div>

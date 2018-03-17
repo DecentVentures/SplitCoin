@@ -8,12 +8,12 @@ type Props = {
 	open: boolean;
 }
 type State = {
-	waited: boolean;
+	shouldOpen: boolean;
 }
 export default class Metamask extends Component<Props> {
 
 	state: State = {
-		waited: false
+		shouldOpen: false
 	}
 
 	constructor(props:Props) {
@@ -22,13 +22,18 @@ export default class Metamask extends Component<Props> {
 
 	componentDidMount(){
 		setTimeout(() =>{
-			this.setState(({waited: true}));
+			this.setState(({shouldOpen: true}));
 		}, 3000);
 	}
+
+	okay = () => {
+		this.setState({shouldOpen: false});	
+	}
+
 	render() {
 		const actions = [
 			(<FlatButton href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en" label="Get Metamask" primary={true} />),
-			(<FlatButton href="http://landing.splitcoin.io/howto.html#brief3" label="How To's" primary={true} keyboardFocused={true}/>)
+			(<FlatButton label="Okay" onClick={this.okay} primary={true} keyboardFocused={true}/>)
 		];
 
 		return (
@@ -36,10 +41,9 @@ export default class Metamask extends Component<Props> {
 			title="Where's Web3?"
 			actions={actions}
 			modal={false}
-			open={this.props.open && this.state.waited}>
+			open={this.props.open && this.state.shouldOpen}>
 			<p>You don't seem to have a Web3 connection.</p>
-			<p>You'll need to install Metamask or some Web3 compatible browser</p>
-			<p>If you need more help, checkout the How To's</p>
+			<p>You'll need to install Metamask or some Web3 compatible browser to deploy SplitCoin contracts</p>
 			</Dialog>
 
 		);

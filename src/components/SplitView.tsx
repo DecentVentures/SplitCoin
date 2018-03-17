@@ -52,7 +52,7 @@ export default class SplitView extends Component<Props> {
 
 	render() {
 		let removeCol = this.props.removeSplit ?
-			<FlatButton onClick={this.props.removeSplit(this.props.split)} label="Remove Split"  secondary={true}/>
+			<FlatButton onClick={this.props.removeSplit(this.props.split)} label="Remove"  secondary={true}/>
 			: null;
 		let claimAction = this.props && this.props.onClaim && this.props.claimable && this.props.split && this.props.split.balance && this.props.split.balance > 0 ?
 			<FlatButton onClick={this.props.onClaim(this.props.split)} label={`Send: ${this.props.split.balance} ETH`}  secondary={true}/>
