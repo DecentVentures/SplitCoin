@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Split } from '../types/Split';
-import { Ether } from '../types/Currency';
+import { Ether, Currency } from '../types/Currency';
 import SplitList from '../components/SplitList';
 import SplitNav from '../components/SplitNav';
+import CurrencyLineContainer from '../containers/CurrencyLineContainer';
 import {  CardHeader } from 'material-ui';
 import { CardActions, RaisedButton } from 'material-ui';
 import { Card } from 'material-ui';
@@ -141,6 +142,10 @@ export default class SplitcoinViewContainer extends Web3Component<any> {
 		});
 	}
 
+	async newDepositAddress(coin: Currency) {
+		console.log(coin);
+	}
+
 
 
 	render() {
@@ -182,6 +187,10 @@ export default class SplitcoinViewContainer extends Web3Component<any> {
 			<CardActions>
 			<RaisedButton disabled={this.state.pendingBalance <= 0} onClick={this.onClaim} label={`Claim: ${this.state.pendingBalance} ETH`} primary={true} />
 			</CardActions>
+			<div>
+			<h4>More Deposit Currencies</h4>
+			<CurrencyLineContainer destination={this.state.address}/>
+			</div>
 			</Card>
 			</div>
 			</div>
