@@ -1,3 +1,6 @@
 [submodule "src/blockchain"]
 	path = src/blockchain
 	url = https://github.com/DecentVentures/SplitCoinContract
+[submodule "src/blockchain/SplitCoinContract"]
+	path = src/blockchain/SplitCoinContract
+	url = https://github.com/DecentVentures/SplitCoinContract
