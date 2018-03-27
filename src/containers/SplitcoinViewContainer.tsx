@@ -4,7 +4,7 @@ import { Ether } from '../types/Currency';
 import SplitList from '../components/SplitList';
 import SplitNav from '../components/SplitNav';
 import CurrencyLineContainer from '../containers/CurrencyLineContainer';
-import ReleaseProxyButton from '../containers/TinyProxyAddress';
+import ReleaseProxyButton from '../containers/TinyProxyRelease';
 import { CardHeader } from 'material-ui';
 import { CardActions, RaisedButton } from 'material-ui';
 import { Card } from 'material-ui';
