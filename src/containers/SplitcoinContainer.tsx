@@ -16,7 +16,7 @@ import Web3Component from '../components/Web3Component';
 let request = require('request-promise');
 let constants = require('../config/constants');
 let env = require('../config/env');
-let factoryInterface = require('../blockchain/build/contracts/SplitCoinFactory.json');
+let factoryInterface = require('../blockchain/SplitCoinContract/build/contracts/SplitCoinFactory.json');
 
 let factory: any = null;
 
@@ -143,10 +143,10 @@ export default class SplitcoinContainer extends Web3Component<any> {
   async componentDidMount() {
     // Now you can start your app & access web3 freely:
     await super.componentDidMount();
-    let network = this.props.match.params.network;
-    let factoryAddr = network ? env[network].active : constants.SPLITCOIN_FACTORY;
+    let network = this.getNetwork();
+    let factoryAddr = network ? env[network].SPLITCOIN_FACTORY.active : constants.SPLITCOIN_FACTORY;
     //default to the main net if theres no address
-    factoryAddr = factoryAddr || env.main.active;
+    factoryAddr = factoryAddr || env.main.SPLITCOIN_FACTORY.active;
     await this.updateFactory(factoryAddr);
   }
 
@@ -356,11 +356,11 @@ export default class SplitcoinContainer extends Web3Component<any> {
       <div className="content App-intro">
       <div>
       <SplitNav
-        contracts={this.state.deployedContracts}
-        network={this.getNetwork()}
-        match={this.props.match}
-        location={this.props.location}
-        history={this.props.history}
+      contracts={this.state.deployedContracts}
+      network={this.getNetwork()}
+      match={this.props.match}
+      location={this.props.location}
+      history={this.props.history}
       />
       <Card>
       <CardHeader style={styles.header} title="Splitcoin" subtitle="Income automation, powered by Ethereum" avatar={Ether.imageSmall} />

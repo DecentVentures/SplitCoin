@@ -4,3 +4,6 @@
 [submodule "src/blockchain/SplitCoinContract"]
 	path = src/blockchain/SplitCoinContract
 	url = https://github.com/DecentVentures/SplitCoinContract
+[submodule "src/blockchain/TinyProxyContract"]
+	path = src/blockchain/TinyProxyContract
+	url = git@github.com:DecentVentures/TinyProxyContract.git

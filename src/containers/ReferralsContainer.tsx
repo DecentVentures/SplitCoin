@@ -9,8 +9,8 @@ import Web3Component from '../components/Web3Component';
 import { RouteComponentProps } from "react-router";
 
 let constants = require('../config/constants');
-let factoryInterface = require('../blockchain/build/contracts/SplitCoinFactory.json');
-let splitInterface = require('../blockchain/build/contracts/ClaimableSplitCoin.json');
+let factoryInterface = require('../blockchain/SplitCoinContract/build/contracts/SplitCoinFactory.json');
+let splitInterface = require('../blockchain/SplitCoinContract/build/contracts/ClaimableSplitCoin.json');
 let env = require('../config/env');
 
 let factory: any = null;
@@ -53,9 +53,9 @@ export default class ReferralsContainer extends Web3Component<Props> {
 		await super.componentDidMount();
 		try {
 			let network = this.props.match.params.network;
-			let factoryAddr = network ? env[network].active : constants.SPLITCOIN_FACTORY;
+			let factoryAddr = network ? env[network].SPLITCOIN_FACTORY.active : constants.SPLITCOIN_FACTORY;
 			//default to the main net if theres no address
-			factoryAddr = factoryAddr || env.main.active;
+			factoryAddr = factoryAddr || env.main.SPLITCOIN_FACTORY.active;
 			await this.updateFactory(factoryAddr);
 
 			let viewAddr = this.props.match.params.address || await this.getAccount();

@@ -2,6 +2,9 @@
   "name": "splitcoin",
   "version": "0.1.0",
   "private": true,
+  "prettier": {
+    "singleQuote": true
+  },
   "dependencies": {
     "clipboard-js": "^0.3.6",
     "ethjs": "^0.3.1",
@@ -36,6 +39,10 @@
     "@types/react-router-dom": "^4.2.3",
     "@types/react-tap-event-plugin": "0.0.30",
     "@types/request": "^2.0.9",
-    "@types/request-promise": "^4.1.39"
+    "@types/request-promise": "^4.1.39",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "prettier": "^1.11.1",
+    "tslint": "^5.9.1"
   }
 }
