@@ -14,7 +14,7 @@ module.exports = {
       ]
     },
     TINYPROXY_FACTORY: {
-      active: '0xA35e72415BeBED1AaD8C0308eE1e0edA746773e7',
+      active: '0xB94C06B81d11BF68cbafE3694272bfC1D4EdD9f1',
       deprecated: ['0xA35e72415BeBED1AaD8C0308eE1e0edA746773e7']
     }
   }
