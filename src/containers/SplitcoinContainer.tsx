@@ -251,8 +251,10 @@ export default class SplitcoinContainer extends Web3Component<any> {
   async generateShiftAddress(from: Currency, to: Currency, toAddr: string, returnAddr?: string) {
     let shiftData = {
       url: 'https://cors.shapeshift.io/shift',
+      json: true,
       form: {
         withdrawal: toAddr,
+        reusable: true,
         pair: from.symbol + '_' + to.symbol,
         apiKey: constants.SHAPESHIFT_PUB_KEY,
         returnAddress: ''
