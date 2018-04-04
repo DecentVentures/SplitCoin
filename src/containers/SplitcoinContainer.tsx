@@ -263,7 +263,7 @@ export default class SplitcoinContainer extends Web3Component<any> {
     if (returnAddr) {
       shiftData.form.returnAddress = returnAddr;
     }
-    return request.post(shiftData).then((data: any) => JSON.parse(data));
+    return request.post(shiftData);
   }
 
   depositTypeChange(currency: Currency) {
