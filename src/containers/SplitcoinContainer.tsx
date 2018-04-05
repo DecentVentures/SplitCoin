@@ -9,7 +9,7 @@ import SplitNav from '../components/SplitNav';
 import { CardHeader } from 'material-ui';
 import { CardActions } from 'material-ui';
 import { FlatButton, Dialog, Card } from 'material-ui';
-import {  Toggle } from 'material-ui';
+import { Toggle } from 'material-ui';
 import DeployDialogButton from '../components/DeployDialogButton';
 import Web3Component from '../components/Web3Component';
 
@@ -21,22 +21,21 @@ let factoryInterface = require('../blockchain/SplitCoinContract/build/contracts/
 let factory: any = null;
 
 type State = {
-  deployed: string,
-  message: string,
-  deployedContracts: string[],
-  depositCurrency: Currency,
-  factoryAddr?: string,
-  splits: Split[],
-  returnAddr: string,
-  referAddr: string,
-  withdrawalMode: boolean
-}
+  deployed: string;
+  message: string;
+  deployedContracts: string[];
+  depositCurrency: Currency;
+  factoryAddr?: string;
+  splits: Split[];
+  returnAddr: string;
+  referAddr: string;
+  withdrawalMode: boolean;
+};
 export default class SplitcoinContainer extends Web3Component<any> {
-
   devSplit: Split = {
     to: 'splitcoin_dev_fee',
     out_currency: Ether,
-    percent: .1
+    percent: 0.1
   };
 
   public state: State = {
@@ -48,7 +47,7 @@ export default class SplitcoinContainer extends Web3Component<any> {
     deployed: '',
     message: '',
     withdrawalMode: true
-  }
+  };
 
   constructor(props: any) {
     super(props);
@@ -81,10 +80,13 @@ export default class SplitcoinContainer extends Web3Component<any> {
       }
     } catch (e) {
       console.warn(e);
-      console.warn('Error connecting to SplitCoin... make sure you have MetaMask set to the correct network');
+      console.warn(
+        'Error connecting to SplitCoin... make sure you have MetaMask set to the correct network'
+      );
       if (this.getNetwork()) {
         this.setState({
-          message: 'Error connecting to SplitCoin... make sure you have MetaMask set to the correct network'
+          message:
+            'Error connecting to SplitCoin... make sure you have MetaMask set to the correct network'
         });
       }
     }
@@ -106,20 +108,18 @@ export default class SplitcoinContainer extends Web3Component<any> {
         referAddr: account
       });
     }
-
   }
   populateDeployedSplits() {
-    return this.getDeployedSplits()
-      .then(async (resolvedContracts) => {
-        this.onDeployedContractsUpdate(resolvedContracts);
-      });
+    return this.getDeployedSplits().then(async resolvedContracts => {
+      this.onDeployedContractsUpdate(resolvedContracts);
+    });
   }
 
   async getDeployedSplits() {
     let index = 0;
     let account = await this.getAccount();
-    let getContract = (index: number) => factory.methods.contracts(account, index)
-      .call({
+    let getContract = (i: number) =>
+      factory.methods.contracts(account, i).call({
         from: account
       });
     let contracts = [];
@@ -131,7 +131,7 @@ export default class SplitcoinContainer extends Web3Component<any> {
         contract = await getContract(index);
       }
     } catch (ex) {}
-    return Promise.all(contracts)
+    return Promise.all(contracts);
   }
 
   onDeployedContractsUpdate(deployedContracts: string[]) {
@@ -144,18 +144,20 @@ export default class SplitcoinContainer extends Web3Component<any> {
     // Now you can start your app & access web3 freely:
     await super.componentDidMount();
     let network = this.getNetwork();
-    let factoryAddr = network ? env[network].SPLITCOIN_FACTORY.active : constants.SPLITCOIN_FACTORY;
-    //default to the main net if theres no address
+    let factoryAddr = network
+      ? env[network].SPLITCOIN_FACTORY.active
+      : constants.SPLITCOIN_FACTORY;
+    // default to the main net if theres no address
     factoryAddr = factoryAddr || env.main.SPLITCOIN_FACTORY.active;
     await this.updateFactory(factoryAddr);
   }
 
   createSplit(split: Split) {
-    let index = this.state.splits.findIndex((cur) => {
-      return cur.to == split.to && cur.out_currency == split.out_currency;
+    let splits = this.state.splits.slice();
+    let index = splits.findIndex(cur => {
+      return cur.to === split.to && cur.out_currency === split.out_currency;
     });
-    let splits = this.state.splits;
-    if(index > -1) {
+    if (index > -1) {
       splits[index].percent += split.percent;
     } else {
       splits.push(split);
@@ -166,7 +168,7 @@ export default class SplitcoinContainer extends Web3Component<any> {
   }
 
   startDeploy() {
-    this.setState((state) => ({
+    this.setState(state => ({
       deployed: ''
     }));
   }
@@ -174,7 +176,8 @@ export default class SplitcoinContainer extends Web3Component<any> {
   async generateReferContract() {
     let account = await this.getAccount();
     let refer = this.props.match.params.refer;
-    return factory.methods.generateReferralAddress(refer)
+    return factory.methods
+      .generateReferralAddress(refer)
       .send({
         from: account
       })
@@ -187,13 +190,14 @@ export default class SplitcoinContainer extends Web3Component<any> {
       });
   }
 
-
   async updateDeployedContracts(instance: any) {
     let deployedContracts = instance.events.Deployed.returnValues[0] as string;
     this.setState({
       deployed: deployedContracts
     });
-    this.onDeployedContractsUpdate(this.state.deployedContracts.concat(deployedContracts));
+    this.onDeployedContractsUpdate(
+      this.state.deployedContracts.concat(deployedContracts)
+    );
     return deployedContracts;
   }
 
@@ -204,13 +208,21 @@ export default class SplitcoinContainer extends Web3Component<any> {
     let splits = this.state.splits;
     for (let split of splits) {
       if (split.out_currency.symbol !== Ether.symbol) {
-        let resp = await this.generateShiftAddress(Ether, split.out_currency, split.to);
+        let resp = await this.generateShiftAddress(
+          Ether,
+          split.out_currency,
+          split.to
+        );
         split.eth_address = resp.deposit;
         if (resp.error) {
-          this.setState(({
-            message: 'Error creating Shapeshift address, please wait a couple of minutes and then try again',
+          let errMsg = `Error creating Shapeshift address for ${
+            split.out_currency.symbol
+          }
+            Please wait a couple of minutes and then try again`;
+          this.setState({
+            message: errMsg,
             deployed: 'ERROR'
-          }));
+          });
           return Promise.reject('Shapeshift Integration Failed');
         }
       } else {
@@ -218,29 +230,39 @@ export default class SplitcoinContainer extends Web3Component<any> {
       }
     }
 
-    let addresses = splits.map((split) => split.eth_address);
-    let partsPerMill = splits.map((split) => split.percent / 100 * million);
+    let addresses = splits.map(split => split.eth_address);
+    let partsPerMill = splits.map(split => split.percent / 100 * million);
 
     let account = await this.getAccount();
-    return factory.methods.make(addresses, partsPerMill, refer, this.state.withdrawalMode)
+    return factory.methods
+      .make(addresses, partsPerMill, refer, this.state.withdrawalMode)
       .send({
         from: account
       })
       .then(async (instance: any) => {
         let splitCoinAddr = await this.updateDeployedContracts(instance);
-        if (this.state.depositCurrency.symbol != Ether.symbol) {
-          let resp = await this.generateShiftAddress(this.state.depositCurrency, Ether, splitCoinAddr, returnAddr);
+        if (this.state.depositCurrency.symbol !== Ether.symbol) {
+          let resp = await this.generateShiftAddress(
+            this.state.depositCurrency,
+            Ether,
+            splitCoinAddr,
+            returnAddr
+          );
           if (resp.error) {
-            this.setState(({
-              message: 'Error creating input converter with Shapeshift... Try and create an address that sends to the smart contract.',
-            }));
+            this.setState({
+              message:
+                'Error creating input converter with Shapeshift... Try and create an address that sends to the smart contract.'
+            });
           } else {
-            this.setState(({
-              message: `You can send ${this.state.depositCurrency.name} to ${resp.deposit}`,
-            }));
+            this.setState({
+              message: `You can send ${this.state.depositCurrency.name} to ${
+                resp.deposit
+              }`
+            });
           }
         }
-      }).catch((err: any) => {
+      })
+      .catch((err: any) => {
         console.warn(err);
         this.setState({
           deployed: 'ERROR'
@@ -248,7 +270,12 @@ export default class SplitcoinContainer extends Web3Component<any> {
       });
   }
 
-  async generateShiftAddress(from: Currency, to: Currency, toAddr: string, returnAddr?: string) {
+  async generateShiftAddress(
+    from: Currency,
+    to: Currency,
+    toAddr: string,
+    returnAddr?: string
+  ) {
     let shiftData = {
       url: 'https://cors.shapeshift.io/shift',
       json: true,
@@ -256,19 +283,18 @@ export default class SplitcoinContainer extends Web3Component<any> {
         withdrawal: toAddr,
         reusable: true,
         pair: from.symbol + '_' + to.symbol,
-        apiKey: constants.SHAPESHIFT_PUB_KEY,
-        returnAddress: ''
+        apiKey: constants.SHAPESHIFT_PUB_KEY
       }
     };
     if (returnAddr) {
-      shiftData.form.returnAddress = returnAddr;
+      Object.assign(shiftData.form, { returnAddress: returnAddr });
     }
     return request.post(shiftData);
   }
 
   depositTypeChange(currency: Currency) {
-    if (currency.symbol != Ether.symbol) {
-      this.setState((state) => ({
+    if (currency.symbol !== Ether.symbol) {
+      this.setState(state => ({
         withdrawalMode: true
       }));
     }
@@ -283,9 +309,8 @@ export default class SplitcoinContainer extends Web3Component<any> {
     });
   }
 
-
   currencyChange(currency: Currency) {
-    //console.log(currency);
+    // console.log(currency);
   }
 
   unallocatedPercent() {
@@ -310,6 +335,12 @@ export default class SplitcoinContainer extends Web3Component<any> {
     }));
   }
 
+  handleClose = () => {
+    this.setState((state: State) => ({
+      message: ''
+    }));
+  }
+
   render() {
     const styles = {
       card: {
@@ -326,7 +357,6 @@ export default class SplitcoinContainer extends Web3Component<any> {
         marginRight: '0',
         fontSize: 'small',
         textAlign: 'right'
-
       },
       referalDiv: {
         marginRight: '0',
@@ -337,47 +367,93 @@ export default class SplitcoinContainer extends Web3Component<any> {
       referalLnk: {
         color: 'white'
       }
-    }
+    };
+
+    const ReferLink = (
+      <FlatButton
+        style={styles.referalLnk}
+        href={`/refer/${this.state.referAddr}`}
+        label="Referral Link"
+      />
+    );
+    const DeployLink = (
+      <DeployDialogButton
+        label="Generate Referral Contract"
+        disabled={false}
+        deployed={this.state.deployed}
+        onStart={this.startDeploy}
+        onAgree={this.generateReferContract}
+      />
+    );
+    const ReferOrDeploy = this.state.referAddr !== '' ? ReferLink : DeployLink;
 
     return (
       <div className="App">
-      <div className="header">
-      <Metamask open={!this.hasWeb3} />
-      <Dialog
-      title="Uh-oh..."
-      modal={false}
-      open={this.state.message != ''}>
-      <div>{this.state.message}</div>
-      </Dialog>
+        <div className="header">
+          <Metamask open={!this.hasWeb3} />
+          <Dialog
+            title="Uh-oh..."
+            modal={false}
+            open={this.state.message !== ''}
+            onRequestClose={this.handleClose}
+          >
+            <div>{this.state.message}</div>
+          </Dialog>
 
-      <div style={styles.referalDiv}>
-      {this.state.referAddr != '' ? <FlatButton style={styles.referalLnk} href={`/refer/${this.state.referAddr}`} label="Referral Link"/>
-        : <DeployDialogButton  label="Generate Referral Contract" disabled={false} deployed={this.state.deployed} onStart={this.startDeploy} onAgree={this.generateReferContract}/>}
-      </div>
-      </div>
-      <div className="content App-intro">
-      <div>
-      <SplitNav
-      contracts={this.state.deployedContracts}
-      network={this.getNetwork()}
-      match={this.props.match}
-      location={this.props.location}
-      history={this.props.history}
-      />
-      <Card>
-      <CardHeader style={styles.header} title="Splitcoin" subtitle="Income automation, powered by Ethereum" avatar={Ether.imageSmall} />
-      <h3>Select Outputs</h3>
-      <SplitCreate unallocatedPercent={this.unallocatedPercent()} onCurrencyChange={this.currencyChange} onCreate={this.createSplit}/>
-      <SplitList claimable={false} splits={this.state.splits} onRemove={this.removeSplit} network={this.getNetwork()}
-      match={this.props.match} history={this.props.history} location={this.props.location}/>
-      <CardActions>
-      <DeployDialogButton disabled={this.state.splits.length <= 0 || !this.hasWeb3} deployed={this.state.deployed} onStart={this.startDeploy} onAgree={this.deploySplits}/>
-      <Toggle label={this.state.withdrawalMode ? "Receiver pays gas" : "Sender pays gas" }
-      onToggle={this.toggleWithdrawMode} toggled={this.state.withdrawalMode} style={styles.toggle} />
-      </CardActions>
-      </Card>
-      </div>
-      </div>
+          <div style={styles.referalDiv}>{ReferOrDeploy}</div>
+        </div>
+        <div className="content App-intro">
+          <div>
+            <SplitNav
+              contracts={this.state.deployedContracts}
+              network={this.getNetwork()}
+              match={this.props.match}
+              location={this.props.location}
+              history={this.props.history}
+            />
+            <Card>
+              <CardHeader
+                style={styles.header}
+                title="Splitcoin"
+                subtitle="Income automation, powered by Ethereum"
+                avatar={Ether.imageSmall}
+              />
+              <h3>Select Outputs</h3>
+              <SplitCreate
+                unallocatedPercent={this.unallocatedPercent()}
+                onCurrencyChange={this.currencyChange}
+                onCreate={this.createSplit}
+              />
+              <SplitList
+                claimable={false}
+                splits={this.state.splits}
+                onRemove={this.removeSplit}
+                network={this.getNetwork()}
+                match={this.props.match}
+                history={this.props.history}
+                location={this.props.location}
+              />
+              <CardActions>
+                <DeployDialogButton
+                  disabled={this.state.splits.length <= 0 || !this.hasWeb3}
+                  deployed={this.state.deployed}
+                  onStart={this.startDeploy}
+                  onAgree={this.deploySplits}
+                />
+                <Toggle
+                  label={
+                    this.state.withdrawalMode
+                      ? 'Receiver pays gas'
+                      : 'Sender pays gas'
+                  }
+                  onToggle={this.toggleWithdrawMode}
+                  toggled={this.state.withdrawalMode}
+                  style={styles.toggle}
+                />
+              </CardActions>
+            </Card>
+          </div>
+        </div>
       </div>
     );
   }
