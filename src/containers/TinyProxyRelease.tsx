@@ -44,16 +44,14 @@ export default class ReleaseProxyButton extends Web3Component<RouteProps> {
       factoryAddr
     );
 
-    console.log('account' , this.account, 'destination', this.props.destination);
     let proxyContract = await this.TinyProxyFactory.methods
-      .proxyFor(this.account, this.props.destination)
+      .proxyFor(this.props.destination, constants.PROXY_GAS)
       .call();
 
     this.TinyProxy = new this.web3.eth.Contract(
       tinyproxyInterface.abi,
       proxyContract
     );
-
 
     const balance = this.web3.eth.getBalance(proxyContract);
 
@@ -62,13 +60,13 @@ export default class ReleaseProxyButton extends Web3Component<RouteProps> {
 
   async componentWillReceiveProps(newProps: RouteProps) {
     let proxyContract = await this.TinyProxyFactory.methods
-      .proxyFor(this.account, newProps.destination)
+      .proxyFor(newProps.destination, constants.PROXY_GAS)
       .call();
 
-    const hasProxy = proxyContract !== '0x0000000000000000000000000000000000000000';
+    const hasProxy =
+      proxyContract !== '0x0000000000000000000000000000000000000000';
 
-    if(hasProxy) {
-
+    if (hasProxy) {
       this.TinyProxy = new this.web3.eth.Contract(
         tinyproxyInterface.abi,
         proxyContract
@@ -80,13 +78,16 @@ export default class ReleaseProxyButton extends Web3Component<RouteProps> {
     }
   }
 
-  release = async() => {
-    await this.TinyProxy.methods.release().send({from: this.account});
+  release = async () => {
+    await this.TinyProxy.methods.release().send({ from: this.account });
   }
 
   render() {
     const ReleaseButton = (
-      <RaisedButton label={`Release Pending Balance : ${this.state.balance} ETH`} onClick={this.release} />
+      <RaisedButton
+        label={`Release Pending Balance : ${this.state.balance} ETH`}
+        onClick={this.release}
+      />
     );
     const MaybeButton = this.state.balance > 0 ? ReleaseButton : '';
     return <div>{MaybeButton}</div>;

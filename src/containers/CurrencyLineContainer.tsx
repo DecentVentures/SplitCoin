@@ -57,9 +57,8 @@ export default class CurrencyLineContainer extends Web3Component<Props> {
 
   coinSelected = async (coin: Currency) => {
     const proxyAddr = await this.TinyProxyFactory.methods
-      .proxyFor(this.account, this.props.destination)
+      .proxyFor(this.props.destination, constants.PROXY_GAS)
       .call();
-    console.log(proxyAddr);
     const hasProxy = proxyAddr !== '0x0000000000000000000000000000000000000000';
     if (hasProxy) {
       let output = await this.generateShiftAddress(
@@ -71,7 +70,7 @@ export default class CurrencyLineContainer extends Web3Component<Props> {
     } else {
       let account = await this.getAccount();
       await this.TinyProxyFactory.methods
-        .make(this.props.destination, 50000, true)
+        .make(this.props.destination, constants.PROXY_GAS, true)
         .send({
           from: account
         });
