@@ -1,0 +1,64 @@
+@media screen and (max-width: 700px) {
+  /*
+   *.SplitCreate {
+   *  background-color: #F5F5F5;
+   *  display: block;
+   *}
+   *.SplitCreate>div {
+   *  width: 80% !important;
+   *  text-align: center;
+   *}
+   */
+}
+
+@media screen and (min-width: 701px) {
+  .SplitCreate {
+    display: inline-block;
+    background-color: #F5F5F5;
+    justify-content: space-around;
+    align-items: center;
+    width: 300px;
+    margin: 15px;
+  }
+
+  .SplitCreate>div {
+    display: block;
+    margin: 15px;
+  }
+
+  .SplitCreate>div:first-of-type {
+    width: 90% !important;
+  }
+
+  .SplitCreate>div:first-of-type>div>div {
+    font-size: 25px;
+  }
+
+
+  .SplitCreate>div>label {
+    left: 0;
+  }
+
+  .SplitCreate>div>div {
+    width: 100% !important;
+  }
+
+  .SplitCreate>div>div>input {
+    text-align: center !important;
+    font-size: 25px !important;
+  }
+
+  .SplitCreate>div>button>div>span {
+    font-size: 28px !important;
+    padding-top: 15px;
+    height: 100%;
+    display: inline-block;
+  }
+
+  .SplitCreate>div>button>div>div>span {
+    font-size: 28px !important;
+    padding-top: 15px;
+    height: 100%;
+    display: inline-block;
+  }
+}

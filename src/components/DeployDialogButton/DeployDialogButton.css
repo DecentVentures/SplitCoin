@@ -1,0 +1,21 @@
+.BigButton {
+  height: 60px;
+  width: 200px;
+}
+.BigButton > button {
+  height: 60px !important;
+  width: 200px !important;
+}
+.BigButton>button>div>div{
+  height: 60px !important;
+  width: 200px !important;
+}
+.BigButton>button>div>span {
+  padding-top: 15px;
+  font-size: 28px !important;
+}
+.BigButton>button>div>div>span {
+  padding-top: 15px;
+  font-size: 28px !important;
+  display: inline-block;
+}

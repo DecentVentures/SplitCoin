@@ -2,16 +2,16 @@ import * as React from 'react';
 import { Split } from '../types/Split';
 import { Currency } from '../types/Currency';
 import { Ether } from '../types/Currency';
-import SplitCreate from '../components/SplitCreate';
+import SplitCreate from '../components/SplitCreate/SplitCreate';
 import Metamask from '../components/Metamask';
 import SplitList from '../components/SplitList';
-import SplitNav from '../components/SplitNav';
 import { CardHeader } from 'material-ui';
 import { CardActions } from 'material-ui';
 import { FlatButton, Dialog, Card } from 'material-ui';
 import { Toggle } from 'material-ui';
-import DeployDialogButton from '../components/DeployDialogButton';
+import DeployDialogButton from '../components/DeployDialogButton/DeployDialogButton';
 import Web3Component from '../components/Web3Component';
+import SplitsChart from '../components/SplitsChart/SplitsChart';
 
 let request = require('request-promise');
 let constants = require('../config/constants');
@@ -333,13 +333,13 @@ export default class SplitcoinContainer extends Web3Component<any> {
     this.setState((state: State) => ({
       withdrawalMode: !state.withdrawalMode
     }));
-  }
+  };
 
   handleClose = () => {
     this.setState((state: State) => ({
       message: ''
     }));
-  }
+  };
 
   render() {
     const styles = {
@@ -404,26 +404,21 @@ export default class SplitcoinContainer extends Web3Component<any> {
         </div>
         <div className="content App-intro">
           <div>
-            <SplitNav
-              contracts={this.state.deployedContracts}
-              network={this.getNetwork()}
-              match={this.props.match}
-              location={this.props.location}
-              history={this.props.history}
-            />
             <Card>
               <CardHeader
                 style={styles.header}
                 title="Splitcoin"
-                subtitle="Income automation, powered by Ethereum"
+                subtitle="Ether forwarding made simple"
                 avatar={Ether.imageSmall}
               />
-              <h3>Select Outputs</h3>
+
               <SplitCreate
                 unallocatedPercent={this.unallocatedPercent()}
                 onCurrencyChange={this.currencyChange}
                 onCreate={this.createSplit}
               />
+
+              <SplitsChart splits={this.state.splits} />
               <SplitList
                 claimable={false}
                 splits={this.state.splits}

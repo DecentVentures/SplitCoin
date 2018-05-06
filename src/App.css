@@ -3,9 +3,9 @@
     width:100%;
     text-align: center;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 80px 850px 80px;
-    grid-template-areas: "h h h h h h" "c c c c c c" "f f f f f f";
+    grid-template-areas: "h h h h" "c c c c" "f f f f";
 
     background-image: url("/BlurSplitCoinBg.jpg");
 
@@ -35,10 +35,10 @@
 
     text-align: center;
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(8, 1fr);
     grid-template-rows: 80px 850px 80px;
     grid-gap: 15px;
-    grid-template-areas: "h h h h h h h h h h h h" "m m . c c c c c c c . ." "f f f f f f f f f f f f";
+    grid-template-areas: "h h h h h h h h" ". c c c c c c ." "f f f f f f f f";
   }
 }
 
@@ -98,22 +98,4 @@
   text-overflow: ellipsis;
 }
 
-@media screen and (max-width: 700px) {
-  .SplitCreate {
-    background-color: #F5F5F5;
-    display: block;
-  }
-  .SplitCreate>div {
-    width: 80% !important;
-    text-align: center;
-  }
-}
 
-@media screen and (min-width: 701px) {
-  .SplitCreate {
-    display: flex;
-    background-color: #F5F5F5;
-    justify-content: space-around;
-    align-items: center;
-  }
-}

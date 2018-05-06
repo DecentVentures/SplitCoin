@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Split } from '../types/Split';
-import CurrencySelectorContainer from '../containers/CurrencySelectorContainer';
-import { Currency } from '../types/Currency';
-import { Ether } from '../types/Currency';
-import { TextField, RaisedButton } from 'material-ui';
+import { Split } from '../../types/Split';
+import CurrencySelectorContainer from '../../containers/CurrencySelectorContainer';
+import { Currency } from '../../types/Currency';
+import { Ether } from '../../types/Currency';
+import { Paper, TextField, RaisedButton } from 'material-ui';
+import './SplitCreate.css';
 
 type Props = {
   onCreate: (param: Split) => void;
@@ -112,30 +113,34 @@ export default class SplitCreate extends Component<Props> {
   }
 
   render() {
-    const padding = { marginRight: '15px' };
+    const padding = { width: '200px', height: '60px', marginRight: '15px' };
     let percent = this.state.split.percent;
     return (
-      <div className="SplitCreate">
+      <Paper className="SplitCreate" zDepth={1}>
         <CurrencySelectorContainer
           label="Output Currency"
           onCoinChange={this.currencyChange}
         />
-        <TextField
-          floatingLabelText="Send To Address"
-          floatingLabelFixed={true}
-          type="text"
-          value={this.state.split.to}
-          onChange={this.onSplitToUpdate}
-        />
-        <TextField
-          floatingLabelText="Percent To Send"
-          floatingLabelFixed={true}
-          type="number"
-          min={0.0}
-          max={this.props.unallocatedPercent}
-          value={percent}
-          onChange={this.onSplitPercentUpdate}
-        />
+        <div>
+          <TextField
+            floatingLabelText="Send To Address"
+            floatingLabelFixed={true}
+            type="text"
+            value={this.state.split.to}
+            onChange={this.onSplitToUpdate}
+          />
+        </div>
+        <div>
+          <TextField
+            floatingLabelText="Percent To Send"
+            floatingLabelFixed={true}
+            type="number"
+            min={0.0}
+            max={this.props.unallocatedPercent}
+            value={percent}
+            onChange={this.onSplitPercentUpdate}
+          />
+        </div>
         <RaisedButton
           style={padding}
           label="Add"
@@ -143,7 +148,7 @@ export default class SplitCreate extends Component<Props> {
           disabled={!this.canCreate()}
           primary={true}
         />
-      </div>
+      </Paper>
     );
   }
 }
