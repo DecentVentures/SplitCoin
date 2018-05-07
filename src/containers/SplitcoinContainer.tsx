@@ -7,11 +7,12 @@ import Metamask from '../components/Metamask';
 import SplitList from '../components/SplitList';
 import { CardHeader } from 'material-ui';
 import { CardActions } from 'material-ui';
-import { FlatButton, Dialog, Card } from 'material-ui';
+import {  Dialog, Card } from 'material-ui';
 import { Toggle } from 'material-ui';
 import DeployDialogButton from '../components/DeployDialogButton/DeployDialogButton';
 import Web3Component from '../components/Web3Component';
 import SplitsChart from '../components/SplitsChart/SplitsChart';
+import NavBar from '../components/NavBar/NavBar';
 
 let request = require('request-promise');
 let constants = require('../config/constants');
@@ -369,39 +370,41 @@ export default class SplitcoinContainer extends Web3Component<any> {
       }
     };
 
-    const ReferLink = (
-      <FlatButton
-        style={styles.referalLnk}
-        href={`/refer/${this.state.referAddr}`}
-        label="Referral Link"
-      />
-    );
-    const DeployLink = (
-      <DeployDialogButton
-        label="Generate Referral Contract"
-        disabled={false}
-        deployed={this.state.deployed}
-        onStart={this.startDeploy}
-        onAgree={this.generateReferContract}
-      />
-    );
-    const ReferOrDeploy = this.state.referAddr !== '' ? ReferLink : DeployLink;
+    /*
+     *const ReferLink = (
+     *  <FlatButton
+     *    style={styles.referalLnk}
+     *    href={`/refer/${this.state.referAddr}`}
+     *    label="Referral Link"
+     *  />
+     *);
+     *const DeployLink = (
+     *  <DeployDialogButton
+     *    label="Generate Referral Contract"
+     *    disabled={false}
+     *    deployed={this.state.deployed}
+     *    onStart={this.startDeploy}
+     *    onAgree={this.generateReferContract}
+     *  />
+     *);
+     */
+    /*
+     *const ReferOrDeploy = this.state.referAddr !== '' ? ReferLink : DeployLink;
+     */
 
     return (
       <div className="App">
-        <div className="header">
-          <Metamask open={!this.hasWeb3} />
-          <Dialog
-            title="Uh-oh..."
-            modal={false}
-            open={this.state.message !== ''}
-            onRequestClose={this.handleClose}
-          >
-            <div>{this.state.message}</div>
-          </Dialog>
+        <NavBar />
+        <Metamask open={!this.hasWeb3} />
+        <Dialog
+          title="Uh-oh..."
+          modal={false}
+          open={this.state.message !== ''}
+          onRequestClose={this.handleClose}
+        >
+          <div>{this.state.message}</div>
+        </Dialog>
 
-          <div style={styles.referalDiv}>{ReferOrDeploy}</div>
-        </div>
         <div className="content App-intro">
           <div>
             <Card>

@@ -30,11 +30,6 @@
     width: 90% !important;
   }
 
-  .SplitCreate>div:first-of-type>div>div {
-    font-size: 25px;
-  }
-
-
   .SplitCreate>div>label {
     left: 0;
   }
@@ -43,22 +38,30 @@
     width: 100% !important;
   }
 
-  .SplitCreate>div>div>input {
-    text-align: center !important;
-    font-size: 25px !important;
-  }
 
-  .SplitCreate>div>button>div>span {
-    font-size: 28px !important;
-    padding-top: 15px;
-    height: 100%;
-    display: inline-block;
-  }
 
-  .SplitCreate>div>button>div>div>span {
-    font-size: 28px !important;
-    padding-top: 15px;
-    height: 100%;
-    display: inline-block;
-  }
+}
+
+.SplitCreate>div:first-of-type>div>div {
+  font-size: 25px;
+}
+
+
+.SplitCreate>div>div>input {
+  text-align: center !important;
+  font-size: 25px !important;
+}
+
+.SplitCreate>div>button>div>span {
+  font-size: 28px !important;
+  padding-top: 15px;
+  height: 100%;
+  display: inline-block;
+}
+
+.SplitCreate>div>button>div>div>span {
+  font-size: 28px !important;
+  padding-top: 15px;
+  height: 100%;
+  display: inline-block;
 }

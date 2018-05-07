@@ -3,7 +3,18 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 10px;
-  width: 550px;
-  height: 350px;
+  width: 50%;
   display: inline-block;
+}
+
+@media screen and (max-width: 700px) {
+  .SplitsChart {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+    display: inline-block;
+  }
+
 }

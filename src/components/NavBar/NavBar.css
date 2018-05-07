@@ -1,0 +1,18 @@
+.NavBar {
+  background-color: #3193DB;
+  grid-area: h;
+  position: relative;
+}
+
+.AccountButton {
+  height: 80px !important;
+  width: 265px;
+  position: absolute !important;
+  right: 0;
+}
+
+.SCLogo {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+}
