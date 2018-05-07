@@ -21,7 +21,7 @@ export default class SplitsChart extends Component<Props> {
   constructor(props: Props) {
     super(props);
     this.colors = [];
-    for (let color of pallete('cb-Set3', 10)) {
+    for (let color of pallete(['tol-rainbow'], 10)) {
       let red = color.slice(0, 2);
       let green = color.slice(2, 4);
       let blue = color.slice(4, 6);
