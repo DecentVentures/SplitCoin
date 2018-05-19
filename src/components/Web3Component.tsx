@@ -8,7 +8,7 @@ type Props<T> = RouteComponentProps<
   {
     network: string;
   } & T
-> &
+  > &
   T;
 
 export default class Web3Component<T> extends Component<Props<T>> {
@@ -87,4 +87,22 @@ export default class Web3Component<T> extends Component<Props<T>> {
       return '';
     }
   }
+
+  async unrollWeb3Array(
+    unrollFn: (index: number) => Promise<any>,
+    termination: any
+  ) {
+    let array = [];
+    let index = 0;
+    try {
+      let unrolled = await unrollFn(index);
+      while (unrolled !== termination && index < 5) {
+        array.push(unrolled);
+        index++;
+        unrolled = await unrollFn(index);
+      }
+    } catch (ex) {}
+    return array;
+  }
+
 }
