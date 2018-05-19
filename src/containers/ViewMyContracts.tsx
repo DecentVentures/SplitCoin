@@ -95,22 +95,24 @@ export default class ViewMyContractsContainer extends Web3Component<Props> {
     return (
       <div className="App">
         <NavBar />
-        <Card>
-          <List>
-            <Subheader>Deployed Contracts</Subheader>
-            {ContractList}
-          </List>
-          <AddressPopover
-            network={this.props.network}
-            open={this.state.open}
-            onClose={this.handlePopClose}
-            anchorEl={this.state.popTarget}
-            address={this.state.selectedContract}
-            match={this.props.match}
-            location={this.props.location}
-            history={this.props.history}
-          />
-        </Card>
+        <div className="content App-intro">
+          <Card>
+            <List>
+              <Subheader>Deployed Contracts</Subheader>
+              {ContractList}
+            </List>
+            <AddressPopover
+              network={this.props.network}
+              open={this.state.open}
+              onClose={this.handlePopClose}
+              anchorEl={this.state.popTarget}
+              address={this.state.selectedContract}
+              match={this.props.match}
+              location={this.props.location}
+              history={this.props.history}
+            />
+          </Card>
+        </div>
       </div>
     );
   }

@@ -96,7 +96,8 @@ export default class Web3Component<T> extends Component<Props<T>> {
     let index = 0;
     try {
       let unrolled = await unrollFn(index);
-      while (unrolled !== termination && index < 5) {
+      console.log(unrolled);
+      while (unrolled !== termination) {
         array.push(unrolled);
         index++;
         unrolled = await unrollFn(index);

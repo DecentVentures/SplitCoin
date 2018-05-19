@@ -3,12 +3,15 @@ import { Menu, MenuItem, Popover, FlatButton } from 'material-ui';
 import { PopoverAnimationVertical } from 'material-ui/Popover';
 import { Ether } from '../../types/Currency';
 import Web3Component from '../Web3Component';
+import { NavLink } from 'react-router-dom';
 import './NavBar.css';
 
 type State = {
-  open: boolean;
-  anchorEl: undefined | HTMLElement;
+  open: boolean,
+  anchorEl: undefined | HTMLElement
 };
+
+type Props = {};
 
 export default class NavBar extends Web3Component<any> {
   state: State = {
@@ -16,13 +19,13 @@ export default class NavBar extends Web3Component<any> {
     anchorEl: undefined
   };
 
-  constructor() {
-    super({});
+  constructor(props: Props) {
+    super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
-  handleClick(event: any) {
+  handleClick(event: React.MouseEvent<HTMLElement>) {
     // This prevents ghost click.
     event.preventDefault();
 
@@ -39,6 +42,12 @@ export default class NavBar extends Web3Component<any> {
   }
 
   render() {
+    const styles = {
+      NavLink: {
+        textDecoration: 'none',
+        color: 'inherit'
+      }
+    };
     let AccountButton = (
       <FlatButton
         className="AccountButton"
@@ -52,9 +61,11 @@ export default class NavBar extends Web3Component<any> {
     let BarContent = this.account ? AccountButton : null;
     return (
       <div className="NavBar">
-        <div className="SCLogo">
-          <img height="80" src="/SCLogo.png" />
-        </div>
+        <NavLink style={styles.NavLink} to="/">
+          <div className="SCLogo">
+            <img height="80" src="/SCLogo.png" />
+          </div>
+        </NavLink>
         {BarContent}
         <Popover
           open={this.state.open}
@@ -65,10 +76,16 @@ export default class NavBar extends Web3Component<any> {
           animation={PopoverAnimationVertical}
         >
           <Menu>
-            <MenuItem primaryText="My Contracts" />
-            <MenuItem primaryText="Help &amp; feedback" />
-            <MenuItem primaryText="Settings" />
-            <MenuItem primaryText="Sign out" />
+            <MenuItem>
+              <NavLink style={styles.NavLink} to="/contracts">
+                My Contracts
+              </NavLink>
+            </MenuItem>
+            <MenuItem>
+              <NavLink style={styles.NavLink} to="/contracts">
+                Shapeshift Orders
+              </NavLink>
+            </MenuItem>
           </Menu>
         </Popover>
       </div>
